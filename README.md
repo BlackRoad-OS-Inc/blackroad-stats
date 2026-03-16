@@ -1,41 +1,46 @@
 <div align="center">
-
 <img src="https://images.blackroad.io/pixel-art/road-logo.png" alt="BlackRoad OS" width="80" />
 
-# blackroad-stats
+# BlackRoad Stats
 
-**BlackRoad Stats — KV-backed live fleet metrics and infrastructure stats API.**
+**Live fleet metrics API. KV-backed telemetry from all 5 Raspberry Pi nodes.**
 
 [![BlackRoad OS](https://img.shields.io/badge/BlackRoad_OS-Pave_Tomorrow-FF2255?style=for-the-badge&labelColor=000000)](https://blackroad.io)
-[![License](https://img.shields.io/badge/License-Proprietary-FF6B2B?style=for-the-badge&labelColor=000000)](./LICENSE)
-[![Edge AI](https://img.shields.io/badge/Edge_AI-52_TOPS-00D4FF?style=for-the-badge&labelColor=000000)](https://github.com/BlackRoad-OS-Inc)
-
-</div>
-
-<div align="center">
-<sub>Part of the <a href="https://blackroad.io">BlackRoad OS</a> ecosystem — sovereign edge AI infrastructure</sub>
 </div>
 
 ---
 
-## Overview
+## Live
 
-BlackRoad Stats — KV-backed live fleet metrics and infrastructure stats API.
+**[stats-blackroad.amundsonalexa.workers.dev](https://stats-blackroad.amundsonalexa.workers.dev/fleet)**
 
-## License
+## Endpoints
 
-**Proprietary** — Copyright © 2024–2026 [BlackRoad OS, Inc.](https://blackroad.io) All rights reserved.
+```bash
+# Full fleet status (all 5 nodes)
+curl https://stats-blackroad.amundsonalexa.workers.dev/fleet
 
-Founder & CEO: **Alexa Louise Amundson** · Delaware C-Corp
+# Response includes per-node:
+# name, host, status, uptime, cpu_temp, cpu_pct, mem_total/used,
+# disk_pct, ollama_models, docker_containers, tcp_ports, services
+```
 
-See [LICENSE](./LICENSE) for full terms.
+## Current Fleet
+
+| Node | IP | Role | Hardware |
+|------|----|------|----------|
+| Alice | .49 | Gateway, DNS, DB | Pi 400 |
+| Cecilia | .96 | AI Inference | Pi 5 + Hailo-8 |
+| Octavia | .101 | Git, Docker | Pi 5 + Hailo-8 |
+| Aria | .98 | Monitoring | Pi 5 |
+| Lucidia | .38 | Apps, CI | Pi 5 |
+
+## Stack
+
+- Cloudflare Workers + KV
+- SSH-based collectors on each Pi (cron */5)
+- JSON telemetry pushed to KV
 
 ---
 
-<div align="center">
-
-**BlackRoad OS — Pave Tomorrow.**
-
-[blackroad.io](https://blackroad.io) · [GitHub](https://github.com/BlackRoad-OS-Inc) · [Brand](https://brand.blackroad.io)
-
-</div>
+*Copyright (c) 2024-2026 BlackRoad OS, Inc. All rights reserved.*
